@@ -2,9 +2,9 @@
 
 **将研究材料整理为可编辑、可验证的 ThuThesis 学位论文草稿。**
 
-中文 | [English](README.en.md) · [V4.1 下载](https://github.com/peta-webster/thuthesis-authoring/releases/tag/v4.1) · [Skill 指令](SKILL.md)
+中文 | [English](README.en.md) · [下载](https://github.com/peta-webster/thuthesis-authoring/releases/latest) · [Skill 指令](SKILL.md)
 
-`thuthesis-authoring` 是面向 Codex 的论文写作 skill。它可以从指定的官方 ThuThesis 发布版初始化工程，将研究笔记、中文初稿、DOCX、Markdown 或纯文本整理到论文结构中，并辅助检查 LaTeX、引用、内容保全和待补信息。
+`thuthesis-authoring` 是一个通用的论文写作 Agent skill，可由支持 `SKILL.md` 的 Agent 加载。它可以从指定的官方 ThuThesis 发布版初始化工程，将研究笔记、中文初稿、DOCX、Markdown 或纯文本整理到论文结构中，并辅助检查 LaTeX、引用、内容保全和待补信息。
 
 工作流以用户提供的材料为依据：保留研究含义、公式、图表和引用，用 `[TODO: ...]` 明确标记缺失证据与待确认内容，交付可继续编辑的论文工程。
 
@@ -22,27 +22,24 @@
 
 ## 安装
 
-将完整 skill 目录放入 Codex 的用户级 skill 目录。以下命令适用于首次安装，目标目录必须不存在：
+下载或克隆本仓库，按所用 Agent 的 skill 加载方式配置完整目录。执行工作流需要 Agent 能读取本地文件并调用 Python 脚本。
 
 ```bash
-mkdir -p "$HOME/.agents/skills"
-git clone --branch v4.1 --depth 1 \
-  https://github.com/peta-webster/thuthesis-authoring.git \
-  "$HOME/.agents/skills/thuthesis-authoring"
+git clone --depth 1 https://github.com/peta-webster/thuthesis-authoring.git
 ```
 
-也可以把该目录放在某个工程的 `.agents/skills/thuthesis-authoring/` 中。安装位置依据 [OpenAI 官方 skills 文档](https://learn.chatgpt.com/docs/customization/overview#skills)。如需升级已有安装，请先保留自己的修改。
+保留 `SKILL.md`、`scripts/`、`references/` 和 `assets/` 的相对目录结构。各 Agent 的安装位置可能不同。
 
-[Release](https://github.com/peta-webster/thuthesis-authoring/releases/tag/v4.1) 提供两个原始 V4.1 包：
+[下载页面](https://github.com/peta-webster/thuthesis-authoring/releases/latest) 提供两种包：
 
-- `thuthesis-authoring-v4.1.zip`：最终上传包，49 个文件，含 8 个测试文件；`SKILL.md` 位于压缩包根目录。手动安装时，将它解压到新建的 `thuthesis-authoring/` 目录。
-- `thuthesis-authoring-v4.1.skill`：41 个运行文件，内容为 ZIP，内部已有 `thuthesis-authoring/` 目录；无需测试文件时可使用此包。
+- **完整包（`.zip`）**：49 个文件，含 8 个测试文件；`SKILL.md` 位于压缩包根目录。手动安装时，将它解压到新建的 `thuthesis-authoring/` 目录。
+- **运行包（`.skill`）**：41 个运行文件，内容为 ZIP，内部已有 `thuthesis-authoring/` 目录；无需测试文件时可使用此包。
 
 两个包的运行文件完全一致。Release 附有 `SHA256SUMS.txt`，可用于校验下载内容。
 
 ## 使用示例
 
-在 Codex 中明确调用 skill，并提供输入文件、目标工程和允许修改的范围：
+在所用 Agent 中调用 skill，并提供输入文件、目标工程和允许修改的范围：
 
 ```text
 使用 thuthesis-authoring skill。
@@ -71,7 +68,7 @@ data/abstract.tex 与 data/chap01.tex。
 - PDF 编译：可选，需要 `latexmk`、`xelatex`、BibTeX、ThuThesis 依赖与相应字体。
 - 官方版本下载：需要 HTTPS 网络访问；本地发布包或目录可用于离线初始化。
 
-ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是本版本审查使用的模板版本。
+ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是已有审查使用的模板版本。
 
 ## 使用边界
 
@@ -81,11 +78,11 @@ ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是�
 - 编译属于代码执行，只适用于可信项目。默认忽略工程 `latexmkrc`，不自动执行 Makefile；本 skill 不提供 TeX 沙箱。
 - 静态检查不能证明语义保真或学术正确性，最终内容仍需作者对照材料审阅。
 
-## V4.1 与验证
+## 验证
 
-V4.1 修复了无引用工程的编译产物误判，以及目标路径验证失败后仍继续读取内容的问题，并精简了未使用的遗留常量。本仓库保持最终 V4.1 的 41 个运行文件和 8 个测试文件原样，仅补充发布说明。
+仓库包含 41 个运行文件和 8 个回归测试文件，覆盖文献检查、编译产物、材料读取、Markdown 处理、命令行兼容性和工作流边界。
 
-2026-09-14 发布检查：现有 **123 项回归测试通过**，**17 个公开 CLI 的 `--help` 检查通过**，运行文件与原始 V4.1 发布包逐文件一致。
+2026-09-14 发布检查：现有 **123 项回归测试通过**，**17 个公开 CLI 的 `--help` 检查通过**，运行文件与经过审查的发布包逐文件一致。
 
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
@@ -107,3 +104,16 @@ thuthesis-authoring/
 ```
 
 模板上游：[tuna/thuthesis](https://github.com/tuna/thuthesis)。本项目提供独立的 Agent 写作工作流；官方模板及其素材保留上游许可证。
+
+## Codex 快捷安装（可选）
+
+首次安装可运行以下命令，目标目录必须不存在：
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+git clone --depth 1 \
+  https://github.com/peta-webster/thuthesis-authoring.git \
+  "$HOME/.agents/skills/thuthesis-authoring"
+```
+
+也可以放入工程的 `.agents/skills/thuthesis-authoring/` 目录。安装位置见 [OpenAI 官方 skills 文档](https://learn.chatgpt.com/docs/customization/overview#skills)。升级已有安装前，请先保留自己的修改。

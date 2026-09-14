@@ -2,9 +2,9 @@
 
 **Turn research material into editable, verifiable ThuThesis thesis drafts.**
 
-[中文](README.md) | English · [Download V4.1](https://github.com/peta-webster/thuthesis-authoring/releases/tag/v4.1) · [Skill instructions](SKILL.md)
+[中文](README.md) | English · [Download](https://github.com/peta-webster/thuthesis-authoring/releases/latest) · [Skill instructions](SKILL.md)
 
-`thuthesis-authoring` is a thesis authoring skill for Codex. It initializes projects from a specified official ThuThesis release, organizes research notes, Chinese drafts, DOCX, Markdown, or plain text into thesis sections, and helps check LaTeX, citations, structural preservation, and missing information.
+`thuthesis-authoring` is a general-purpose thesis authoring skill for Agents that support `SKILL.md`. It initializes projects from a specified official ThuThesis release, organizes research notes, Chinese drafts, DOCX, Markdown, or plain text into thesis sections, and helps check LaTeX, citations, structural preservation, and missing information.
 
 The workflow stays grounded in user-provided material. It preserves research meaning, equations, figures, tables, and citations, marks missing evidence and unresolved details with `[TODO: ...]`, and delivers a thesis project the author can continue editing.
 
@@ -22,27 +22,24 @@ The workflow stays grounded in user-provided material. It preserves research mea
 
 ## Installation
 
-Place the complete skill directory in Codex's user-level skills directory. These commands are for a first installation; the destination must not already exist:
+Download or clone this repository, then configure the complete directory using your Agent's skill-loading mechanism. To execute the workflow, the Agent needs access to local files and the ability to run Python scripts.
 
 ```bash
-mkdir -p "$HOME/.agents/skills"
-git clone --branch v4.1 --depth 1 \
-  https://github.com/peta-webster/thuthesis-authoring.git \
-  "$HOME/.agents/skills/thuthesis-authoring"
+git clone --depth 1 https://github.com/peta-webster/thuthesis-authoring.git
 ```
 
-For a project-specific installation, use `.agents/skills/thuthesis-authoring/` inside that project instead. These locations follow the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/customization/overview#skills). Preserve local modifications before upgrading an existing installation.
+Keep the relative layout of `SKILL.md`, `scripts/`, `references/`, and `assets/` intact. Installation locations vary by Agent.
 
-The [release](https://github.com/peta-webster/thuthesis-authoring/releases/tag/v4.1) includes two original V4.1 packages:
+The [download page](https://github.com/peta-webster/thuthesis-authoring/releases/latest) provides two packages:
 
-- `thuthesis-authoring-v4.1.zip`: the final upload package, containing 49 files including 8 test files. `SKILL.md` is at the archive root. For manual installation, extract it into a new `thuthesis-authoring/` directory.
-- `thuthesis-authoring-v4.1.skill`: 41 runtime files in ZIP format, already wrapped in a `thuthesis-authoring/` directory. Use this package when tests are not needed.
+- **Full package (`.zip`)**: 49 files including 8 test files. `SKILL.md` is at the archive root. For manual installation, extract it into a new `thuthesis-authoring/` directory.
+- **Runtime package (`.skill`)**: 41 runtime files in ZIP format, already wrapped in a `thuthesis-authoring/` directory. Use this package when tests are not needed.
 
 Both packages contain identical runtime files. A `SHA256SUMS.txt` release asset is provided to verify downloads.
 
 ## Example requests
 
-Explicitly invoke the skill in Codex and identify the source, target project, and permitted edits:
+Invoke the skill in your Agent and identify the source, target project, and permitted edits:
 
 ```text
 Use the thuthesis-authoring skill.
@@ -73,7 +70,7 @@ When you need a PDF, explicitly request compilation and confirm that the entire 
 - PDF compilation: optional; requires `latexmk`, `xelatex`, BibTeX, ThuThesis dependencies, and appropriate fonts.
 - Official release downloads: HTTPS access is required. A local release archive or directory supports offline initialization.
 
-The ThuThesis template must be supplied or downloaded separately. The user selects the version; `v7.7.1` was used in this version's release review.
+The ThuThesis template must be supplied or downloaded separately. The user selects the version; `v7.7.1` was used in the existing release review.
 
 ## Operating boundaries
 
@@ -83,11 +80,11 @@ The ThuThesis template must be supplied or downloaded separately. The user selec
 - Compilation executes code and is limited to trusted projects. Project `latexmkrc` is ignored by default, and Makefiles are not run automatically. This skill does not provide a TeX sandbox.
 - Static checks cannot establish semantic fidelity or academic correctness. The author must review the result against the source material.
 
-## V4.1 and validation
+## Validation
 
-V4.1 fixes false compile-artifact failures in projects without citations and stops content inspection after target-path validation fails. It also removes an unused legacy constant. This repository preserves the final V4.1 package's 41 runtime files and 8 test files unchanged, adding publication documentation only.
+The repository contains 41 runtime files and 8 regression test files covering bibliography checks, compile artifacts, source ingestion, Markdown processing, CLI compatibility, and workflow boundaries.
 
-Publication checks on 2026-09-14: **123 existing regression tests passed**, **all 17 public CLI `--help` checks passed**, and runtime files matched the original V4.1 release package byte for byte.
+Publication checks on 2026-09-14: **123 existing regression tests passed**, **all 17 public CLI `--help` checks passed**, and runtime files matched the reviewed release package byte for byte.
 
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
@@ -109,3 +106,16 @@ thuthesis-authoring/
 ```
 
 Upstream template: [tuna/thuthesis](https://github.com/tuna/thuthesis). This project provides an independent Agent authoring workflow. The official template and its assets retain their upstream license.
+
+## Codex quick install (optional)
+
+For a first installation, run the following commands. The destination must not already exist:
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+git clone --depth 1 \
+  https://github.com/peta-webster/thuthesis-authoring.git \
+  "$HOME/.agents/skills/thuthesis-authoring"
+```
+
+For a project-specific installation, use `.agents/skills/thuthesis-authoring/` inside that project instead. See the [official OpenAI skills documentation](https://learn.chatgpt.com/docs/customization/overview#skills) for installation locations. Preserve local modifications before upgrading an existing installation.
