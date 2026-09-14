@@ -84,6 +84,8 @@ ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是�
 
 2026-09-14 发布检查：现有 **123 项回归测试通过**，**17 个公开 CLI 的 `--help` 检查通过**，运行文件与经过审查的发布包逐文件一致。
 
+[GitHub Actions CI](https://github.com/peta-webster/thuthesis-authoring/actions/workflows/ci.yml) 在主分支提交和 Pull Request 时，使用 Linux、macOS 与 Python 3.9、3.14 的四种组合运行回归测试及所有公开 CLI 的 `--help` 检查。各组合全部通过后，汇总检查 `CI` 才会成功。该检查不依赖 TeX 环境，也不执行真实论文编译。
+
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
