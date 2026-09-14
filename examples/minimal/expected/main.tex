@@ -1,0 +1,44 @@
+% Original demonstration assembly; official template files remain unchanged.
+\documentclass[degree=master,fontset=fandol]{thuthesis}
+\input{thusetup}
+\thusetup{
+  output=electronic,
+  title={学位论文写作与自查指南},
+  title*={A Guide to Thesis Writing and Self-Review},
+  author={ThuThesis Authoring 示例项目},
+  author*={ThuThesis Authoring Example Project},
+  department={}, discipline={}, discipline*={},
+  degree-category={}, degree-category*={},
+  supervisor={}, supervisor*={}, associate-supervisor={}, associate-supervisor*={},
+}
+\hypersetup{pdftitle={学位论文写作与自查指南},pdfauthor={ThuThesis Authoring Example Project}}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{35mm}
+{\zihao{1}\bfseries 学位论文写作与自查指南\par}
+\vspace{12mm}
+{\large A Guide to Thesis Writing and Self-Review\par}
+\vspace{20mm}
+{\zihao{3} 原创教学示例\par}
+\vspace{8mm}
+\begin{minipage}{.78\textwidth}
+\centering
+本文用于展示材料组织、LaTeX 排版和质量检查。\\
+不是学校官方规范，不是可提交的正式学位论文。\\
+数值 2、4、6 仅为教学数据，不代表真实实验。\\
+两项未确认要求以 TODO 保留。
+\end{minipage}
+\vfill
+ThuThesis Authoring 示例项目\par
+2026\par
+\end{titlepage}
+\frontmatter
+\input{data/abstract}
+\tableofcontents
+\mainmatter
+\input{data/chap01}
+\input{data/chap02}
+\input{data/chap03}
+\bibliography{ref/refs}
+\end{document}

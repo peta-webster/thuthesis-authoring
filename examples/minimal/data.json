@@ -1,0 +1,8 @@
+{
+  "purpose": "教学数值；不代表真实实验",
+  "unit": "任意教学单位",
+  "values": [2, 4, 6],
+  "expected_count": 3,
+  "expected_sum": 12,
+  "expected_mean": 4
+}

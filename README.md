@@ -61,6 +61,18 @@ data/abstract.tex 与 data/chap01.tex。
 
 需要 PDF 时，可以另行明确请求编译，并确认整个工程及其构建环境可信。更多示例见 [usage-examples.md](references/usage-examples.md)。
 
+## 可复跑的原创示例
+
+[《学位论文写作与自查指南》](examples/minimal/README.md) 提供三章原创材料、中英文摘要、公式、表格、自制流程图和两份教学参考说明，以及实际 PDF 页面的预览。
+
+示例包含真实 Agent 生成记录和独立的固定样稿复跑入口。在具备 TeX 环境的本地机器上，从仓库根目录运行：
+
+```bash
+python3 tools/run_example.py --output /tmp/thuthesis-example
+```
+
+目标目录必须不存在。默认验证有引用和无引用两种情况，保留两项待确认要求，因此预期 `compile_ok=true`、`submission_ready=false`。依赖、本地 ZIP 用法和验证记录见[示例说明](examples/minimal/README.md)。此前的 Release 下载包不包含本次新增示例。
+
 ## 环境要求
 
 - 核心脚本：Python 3.9+，仅使用标准库。
@@ -80,7 +92,7 @@ ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是�
 
 ## 验证
 
-仓库包含 41 个运行文件和 8 个回归测试文件，覆盖文献检查、编译产物、材料读取、Markdown 处理、命令行兼容性和工作流边界。
+核心 skill 包含 41 个运行文件和 8 个原有回归测试文件，覆盖文献检查、编译产物、材料读取、Markdown 处理、命令行兼容性和工作流边界。仓库另含原创示例、复跑工具及其本地失败场景测试。
 
 2026-09-14 发布检查：现有 **123 项回归测试通过**，**17 个公开 CLI 的 `--help` 检查通过**，运行文件与经过审查的发布包逐文件一致。
 
@@ -90,7 +102,7 @@ ThuThesis 模板需单独提供或下载。版本由用户指定；`v7.7.1` 是�
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
-此前发布审查已在本地 ThuThesis v7.7.1 上完成有引用和无引用项目的真实编译；本次发布重新检查打包与回归测试，未重新进行完整论文端到端编译。Windows 实机兼容性及官方下载的在线端到端路径未在本次发布中验证。
+2026-09-14 的发布检查重新验证了打包与回归测试，未重跑完整论文编译。新增原创指南的本地真实生成、编译和官方下载路径验证见[示例验证记录](examples/minimal/VALIDATION.md)。该示例未验证 Windows 或 Linux。
 
 ## 目录
 
@@ -100,7 +112,9 @@ thuthesis-authoring/
 ├── scripts/             # 17 个 CLI 与 6 个内部模块
 ├── references/          # 12 份参考说明
 ├── assets/templates/    # 5 个写作与交付模板
-├── tests/               # 8 个回归测试文件
+├── tests/               # 核心回归测试与示例入口检查
+├── examples/minimal/    # 原创写作指南、参考输出与预览
+├── tools/run_example.py # 本地复跑入口
 ├── LICENSE              # MIT 许可证
 ├── README.md
 └── README.en.md
