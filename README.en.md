@@ -86,6 +86,8 @@ The repository contains 41 runtime files and 8 regression test files covering bi
 
 Publication checks on 2026-09-14: **123 existing regression tests passed**, **all 17 public CLI `--help` checks passed**, and runtime files matched the reviewed release package byte for byte.
 
+[GitHub Actions CI](https://github.com/peta-webster/thuthesis-authoring/actions/workflows/ci.yml) runs the regression suite and every public CLI's `--help` check on pushes to the main branch and pull requests. Its four configurations cover Linux and macOS with Python 3.9 and 3.14. The aggregate `CI` check succeeds only when every configuration passes. These checks require no TeX installation and do not compile a real thesis.
+
 ```bash
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```

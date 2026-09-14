@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  tests:
+    name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15-intel]
+        python-version: ["3.9", "3.14"]
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Check public CLI entry points
+        shell: python
+        run: |
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          scripts = sorted(
+              path for path in Path("scripts").glob("*.py")
+              if not path.name.startswith("_")
+          )
+          if not scripts:
+              raise SystemExit("No public CLI scripts found")
+          for script in scripts:
+              print(f"Checking {script}", flush=True)
+              subprocess.run(
+                  [sys.executable, str(script), "--help"],
+                  check=True,
+                  timeout=30,
+                  stdout=subprocess.DEVNULL,
+              )
+          print(f"All {len(scripts)} public CLI help checks passed.")
+
+  ci:
+    name: CI
+    needs: tests
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every test configuration to pass
+        env:
+          TEST_RESULT: ${{ needs.tests.result }}
+        run: test "$TEST_RESULT" = success
