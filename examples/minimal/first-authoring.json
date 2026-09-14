@@ -1,0 +1,421 @@
+{
+  "verified_at": "2026-09-15T01:18:21.836425+08:00",
+  "mode": "first_agent_authoring_from_original_material",
+  "source_commit_baseline": "c67401817c7c14439a4013997ea2ba11f002e672",
+  "commit_note": "The example was authored in an uncommitted worktree; the baseline commit identifies the unchanged skill runtime. Input and output hashes identify this example.",
+  "scope": "Original teaching guide only; no third-party paper material was imported.",
+  "input_sha256": {
+    "source.md": "c8fbf6d8ac19c9092b63f16da84928ab7e92be02ea81ac731dd9c20120d68be6",
+    "data.json": "03c57556982d575f6cd046db94747742242f8d2cf0aa07d1e6ee094080316b1a",
+    "template.json": "88b306cd7a9a9c659389d7843b9c2714174847c7ad681ccd588244aee53bb115",
+    "references/chapter-organization.md": "daebcfa74d44d3bcac8a4ed1d926c9e61db612bf526816d336e3d61c56199977",
+    "references/evidence-checklist.md": "dac56e20abac553020c416c92f90090a34002cef206af98988739e9675a7d565",
+    "references/guide.bib": "1a31436cbea56b7f683c6286357eceef000f8cb155b7be35aa31e3d942f7e634",
+    "expected/data/abstract.tex": "4e7fcb7ec0057b0a70dc9780a385c0c4cab2ec87b593126506f39ab29bc60be3",
+    "expected/data/chap01.tex": "3c62d4258f6591fab04b2d2eaad7c9b018820397be9f0630f939db504a7ec714",
+    "expected/data/chap02.tex": "1279f401e48f3a38ec8c0f50cab4b951a2fc6ebf06b6cc0300f8751a0e2e65ba",
+    "expected/data/chap03.tex": "fd4597506bbdc7a2576e217896993b97a1bbc99f72ec688ed3315263b60c78a1",
+    "expected/main.tex": "fc662ada5d5d922cb2ba4635705a80d89b01180645677d09a4c4911aabf51125"
+  },
+  "runtime_sha256": {
+    "SKILL.md": "bc702758038d4bb9df9239605b5e0227a38b97fdab860ddd256f31f114e61b19",
+    "tools/run_example.py": "194814be07781eb8ed727d2a894edff415c55f9e6e34f18ed3b47f1b11fc00f2",
+    "scripts/_atomic_write.py": "cf63d988e40e162dd6f968e1e8849a65ef5c962f086ce3dc3bd9427d46e3f4f2",
+    "scripts/_bibtex_parser.py": "9d92f60a7dbc2a54872fc929ca94d2330edc5b663ff8d47913ba25120ba97c9b",
+    "scripts/_markdown_syntax.py": "926ec5a9433a2fbe32304bfbf21e5b886e51fac4c652f76f370d18e858ca8f04",
+    "scripts/_shared_patterns.py": "e6ca6193b2e09f2d4c204250e3d431115f3af298aa93a0bd810eaea9103c504b",
+    "scripts/_subprocess_safety.py": "0acb78965133c057b4760dd6aeb056e43763c803f531e40fd7e4c69985a968f5",
+    "scripts/_thuthesis_paths.py": "94259c9938a1a4721a9e7b3a77918fe5965c5f501da9ff51ca556e5052e68538",
+    "scripts/check_bibliography_artifacts.py": "bcb3257d28abef79196e221e1c98a70a3d67438acc61fd664786033b5e3848a8",
+    "scripts/check_bibliography_consistency.py": "530496403ad69a0faee0be82fb7426ba7a2d46b2ee307942edb31c9c96c44a40",
+    "scripts/check_bibliography_preservation.py": "474de24f6f014917a82bb6bd003059d12b79fc9f3d29cd2a870c22aacbbf0876",
+    "scripts/check_latex_safety.py": "fa770bee119a45befc796ed5b7f7e658e9c6a56cd5751c49e3847bb4e50dbc56",
+    "scripts/check_preservation.py": "03c14ed034c0a76968d913f18cb2ca83bf4b1bda7139dd9e9094a0bc37a165f2",
+    "scripts/check_todo_and_claims.py": "1f2287798bf4e4a4002faba2705b9f34125fed517ee977c973d647db78be7b6b",
+    "scripts/compile_thuthesis_project.py": "ff49aabc81ef1c652ede446fc70e701c2a328761e7f1ffc852d0d172448f4725",
+    "scripts/convert_markdown_tables.py": "2e0e8cf2427142c5d8e3574e8d24980ef17496f5afe4944a14ff2452cf7c6479",
+    "scripts/escape_latex_text.py": "5f0752af12e59090ab39b70bf1eff1d63555ddf97901e467d920bbff9574b9b9",
+    "scripts/extract_source_document.py": "f6ee6011a94d1f1c2677fc0d3c37495aa984bdf5a56b7f1e7d31449459df9bfc",
+    "scripts/extract_tex_outline.py": "a1face29cd429f685744791abf83a924194d3b4b8d7fe3c87658b5df492a6385",
+    "scripts/init_thuthesis_project.py": "e709042c526d044f8d0749261f57708b423c8d2fda7cb89cfae976d4dd9348b1",
+    "scripts/inspect_thuthesis_project.py": "c7d9e2cfdefcd2ce4cf9c18a60fefdd005d698965c5738e4889874ea74def07e",
+    "scripts/merge_bibliography_entries.py": "bb595e7acc06b2c82089a88c88f5319078a6813dc0165304d191139b0fa06ab2",
+    "scripts/normalize_numeric_citations.py": "67effe6c6225d60118fbb693d4fc5b7981aa8cb21c866599c9d52cc54c963c58",
+    "scripts/run_quality_gates.py": "45accabfd6a28b898dc4cf2dd26cbb84f8574dc0d123351743309aea958b32bd",
+    "scripts/validate_tex_targets.py": "540a0e9a6b5ad6c5fdb4fdb11d54d8f254239e4bf8fabd28bf5fc1ecd9f3a832"
+  },
+  "chapter_map": {
+    "中文摘要 / English abstract": "data/abstract.tex",
+    "第一章": "data/chap01.tex",
+    "第二章": "data/chap02.tex",
+    "第三章": "data/chap03.tex"
+  },
+  "commands": [
+    {
+      "stage": "extraction",
+      "command": [
+        "python3",
+        "scripts/extract_source_document.py",
+        "{repo}/examples/minimal/source.md"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "initialization",
+      "command": [
+        "python3",
+        "scripts/init_thuthesis_project.py",
+        "{work}/first-authoring/project",
+        "--source",
+        "{work}/thuthesis-v7.7.1.zip",
+        "--sha256",
+        "ca8b0de4f7e770d8ab8d50870f7d3a800b5f8c0c5d049c83cf9cafc70142a26d",
+        "--main",
+        "main.tex",
+        "--chapter",
+        "data/chap01.tex",
+        "--chapter",
+        "data/chap02.tex",
+        "--chapter",
+        "data/chap03.tex"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "inspection",
+      "command": [
+        "python3",
+        "scripts/inspect_thuthesis_project.py",
+        "{work}/first-authoring/project"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "targets",
+      "command": [
+        "python3",
+        "scripts/validate_tex_targets.py",
+        "{work}/first-authoring/project",
+        "data/abstract.tex",
+        "data/chap01.tex",
+        "data/chap02.tex",
+        "data/chap03.tex",
+        "ref/refs.bib",
+        "--allow-bibliography"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "outline-abstract",
+      "command": [
+        "python3",
+        "scripts/extract_tex_outline.py",
+        "{work}/first-authoring/project/data/abstract.tex"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "outline-chap01",
+      "command": [
+        "python3",
+        "scripts/extract_tex_outline.py",
+        "{work}/first-authoring/project/data/chap01.tex"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "outline-chap02",
+      "command": [
+        "python3",
+        "scripts/extract_tex_outline.py",
+        "{work}/first-authoring/project/data/chap02.tex"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "outline-chap03",
+      "command": [
+        "python3",
+        "scripts/extract_tex_outline.py",
+        "{work}/first-authoring/project/data/chap03.tex"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "authoring",
+      "command": [
+        "python3",
+        "{work}/first-authoring/author_guide.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "stage": "bibliography-dry-run",
+      "command": [
+        "python3",
+        "scripts/merge_bibliography_entries.py",
+        "{work}/first-authoring/project",
+        "ref/refs.bib",
+        "--entries-file",
+        "examples/minimal/references/guide.bib"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "bibliography-append",
+      "command": [
+        "python3",
+        "scripts/merge_bibliography_entries.py",
+        "{work}/first-authoring/project",
+        "ref/refs.bib",
+        "--entries-file",
+        "examples/minimal/references/guide.bib",
+        "--in-place"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "quality",
+      "command": [
+        "python3",
+        "scripts/run_quality_gates.py",
+        "{work}/first-authoring/project",
+        "data/abstract.tex",
+        "data/chap01.tex",
+        "data/chap02.tex",
+        "data/chap03.tex",
+        "--main",
+        "main.tex",
+        "--baseline-root",
+        "{work}/first-authoring/baseline",
+        "--source-backed",
+        "--bibliography-targets",
+        "ref/refs.bib",
+        "--skip-preservation",
+        "--preservation-skip-reason",
+        "User-approved replacement of official demonstration chapters with an original teaching guide."
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "stage": "final-quality",
+      "command": [
+        "python3",
+        "scripts/run_quality_gates.py",
+        "{work}/first-authoring/project",
+        "data/abstract.tex",
+        "data/chap01.tex",
+        "data/chap02.tex",
+        "data/chap03.tex",
+        "--main",
+        "main.tex",
+        "--baseline-root",
+        "{work}/first-authoring/baseline",
+        "--source-backed",
+        "--bibliography-targets",
+        "ref/refs.bib",
+        "--skip-preservation",
+        "--preservation-skip-reason",
+        "User-approved replacement of official demonstration chapters with an original teaching guide."
+      ],
+      "returncode": 0
+    },
+    {
+      "stage": "final-compile",
+      "command": [
+        "python3",
+        "scripts/compile_thuthesis_project.py",
+        "{work}/first-authoring/project",
+        "--main",
+        "main.tex"
+      ],
+      "returncode": 0
+    }
+  ],
+  "agent_edit_notes": [
+    "Composed original source and two supporting teaching notes before extraction.",
+    "Organized source headings and paragraphs, using repository math-aware escaping, citation normalization and table rendering helpers; created an original figure and teaching main file.",
+    "Adjusted generated tables to wrap long prose.",
+    "Visual review caught TODO text being interpreted as an optional list label; inserted an empty group after each item command and recompiled."
+  ],
+  "template": {
+    "version": "7.7.1",
+    "url": "https://github.com/tuna/thuthesis/releases/download/v7.7.1/thuthesis-v7.7.1.zip",
+    "sha256": "ca8b0de4f7e770d8ab8d50870f7d3a800b5f8c0c5d049c83cf9cafc70142a26d",
+    "fontset": "fandol"
+  },
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "latexmk": "Latexmk, John Collins, 15 June 2025. Version 4.87",
+    "xelatex": "XeTeX 3.141592653-2.6-0.999997 (TeX Live 2025)\nkpathsea version 6.4.1\nCopyright 2025 SIL International, Jonathan Kew and Khaled Hosny.\nThere is NO warranty.  Redistribution of this software is\ncovered by the terms of both the XeTeX copyright and\nthe Lesser GNU General Public License.\nFor more information about these matters, see the file\nnamed COPYING and the XeTeX source.\nPrimary author of XeTeX: Jonathan Kew.\nCompiled with ICU version 76.1; using 76.1\nCompiled with zlib version 1.3.1; using 1.3.1\nCompiled with FreeType2 version 2.13.3; using 2.13.3\nCompiled with Graphite2 version 1.3.14; using 1.3.14\nCompiled with HarfBuzz version 10.2.0; using 10.2.0\nCompiled with libpng version 1.6.46; using 1.6.46\nCompiled with pplib version v2.2\nUsing Mac OS X Core Text and Cocoa frameworks",
+    "bibtex": "BibTeX 0.99d (TeX Live 2025)\nkpathsea version 6.4.1\nCopyright 2025 Oren Patashnik.\nThere is NO warranty.  Redistribution of this software is\ncovered by the terms of both the BibTeX copyright and\nthe Lesser GNU General Public License.\nFor more information about these matters, see the file\nnamed COPYING and the BibTeX source.\nPrimary author of BibTeX: Oren Patashnik."
+  },
+  "first_build": {
+    "ok": true,
+    "compile_ok": true,
+    "quality_ok": true,
+    "submission_ready": false,
+    "todo_count": 2,
+    "citation_keys": [
+      "guide1",
+      "guide2"
+    ],
+    "bibtex_warning_count": 0,
+    "pdf_sha256": "e44be55a4b4ae2af4ff4b93e69b9962f38f3a5f31ea9b898b0284e157cae3bf0",
+    "pages": 11,
+    "pdf_page_size": "A4",
+    "template_preservation": {
+      "ok": true,
+      "checked_files": 39,
+      "allowed_changes": [
+        "data/abstract.tex",
+        "data/chap01.tex",
+        "data/chap02.tex",
+        "data/chap03.tex",
+        "main.tex",
+        "ref/refs.bib"
+      ],
+      "unexpected_changes": []
+    }
+  },
+  "reviewed_fixture_replay": {
+    "cited": {
+      "ok": true,
+      "compile_ok": true,
+      "submission_ready": false,
+      "todo_count": 2,
+      "citation_keys": [
+        "guide1",
+        "guide2"
+      ],
+      "pdf": "cited/project/main.pdf",
+      "pdf_sha256": "b0fe54c352f443bebb9434630ab58aab8255e7431644bc4de7511029ee0453b5",
+      "template_preservation": {
+        "ok": true,
+        "checked_files": 39,
+        "allowed_changes": [
+          "data/abstract.tex",
+          "data/chap01.tex",
+          "data/chap02.tex",
+          "data/chap03.tex",
+          "main.tex",
+          "ref/refs.bib"
+        ],
+        "unexpected_changes": []
+      }
+    },
+    "no-citations": {
+      "ok": true,
+      "compile_ok": true,
+      "submission_ready": false,
+      "todo_count": 2,
+      "citation_keys": [],
+      "pdf": "no-citations/project/main.pdf",
+      "pdf_sha256": "ce9204d28526cf45a7901c6b2a561095409593b39ecfeb6a26e82b9fe7cd278b",
+      "template_preservation": {
+        "ok": true,
+        "checked_files": 40,
+        "allowed_changes": [
+          "data/abstract.tex",
+          "data/chap01.tex",
+          "data/chap02.tex",
+          "data/chap03.tex",
+          "main.tex"
+        ],
+        "unexpected_changes": []
+      }
+    }
+  },
+  "official_download_local_replay": {
+    "cited": {
+      "ok": true,
+      "compile_ok": true,
+      "submission_ready": false,
+      "todo_count": 2,
+      "citation_keys": [
+        "guide1",
+        "guide2"
+      ],
+      "pdf": "cited/project/main.pdf",
+      "pdf_sha256": "e27bdaa4762cc1f910799acecf434f7a14a7606e0fb7052ce13c120a0b853fca",
+      "template_preservation": {
+        "ok": true,
+        "checked_files": 39,
+        "allowed_changes": [
+          "data/abstract.tex",
+          "data/chap01.tex",
+          "data/chap02.tex",
+          "data/chap03.tex",
+          "main.tex",
+          "ref/refs.bib"
+        ],
+        "unexpected_changes": []
+      }
+    }
+  },
+  "visual_review": {
+    "first_build_pages_checked": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "no_citations_variant_pages_visually_checked": [
+      1,
+      5,
+      7,
+      11
+    ],
+    "no_citations_pages_pixel_identical_to_reviewed_first_build": [
+      2,
+      3,
+      4,
+      6,
+      8,
+      9,
+      10
+    ],
+    "issues_remaining": []
+  },
+  "previews": [
+    {
+      "path": "previews/equation-and-table.png",
+      "pdf_page": 7,
+      "printed_page": "3",
+      "sha256": "0895c457940422d192289090ef30ee2c15df4d1052793da959f020eb98c59692"
+    },
+    {
+      "path": "previews/workflow-and-review.png",
+      "pdf_page": 9,
+      "printed_page": "5",
+      "sha256": "17b8bd1155fe91596863f3743febd2b50c5e07c38e1e10ae9df4274b10697eb1"
+    }
+  ],
+  "local_tests": {
+    "original_regressions": 123,
+    "example_tests": 6,
+    "total_passed": 129,
+    "public_cli_help_passed": 17
+  },
+  "linux_tested": false,
+  "ci_workflows_added": false
+}

@@ -63,6 +63,18 @@ Do not edit or compile anything.
 
 When you need a PDF, explicitly request compilation and confirm that the entire project and its build environment are trusted. See [usage-examples.md](references/usage-examples.md) for more requests.
 
+## Reproducible original example
+
+[A Guide to Thesis Writing and Self-Review](examples/minimal/README.en.md) includes three chapters of original material, bilingual abstracts, an equation, tables, a workflow figure, two supporting teaching notes, and previews from an actual PDF build.
+
+The example records the first real Agent authoring run separately from its fixed-fixture replay. On a local machine with TeX installed, run from the repository root:
+
+```bash
+python3 tools/run_example.py --output /tmp/thuthesis-example
+```
+
+The destination must not exist. Both cited and citation-free cases run by default. Two unresolved requirements remain, so `compile_ok=true` and `submission_ready=false` are expected. See the [example documentation](examples/minimal/README.en.md) for dependencies, local ZIP support, and validation records. Earlier Release assets do not contain this new example.
+
 ## Requirements
 
 - Core scripts: Python 3.9+, using only the standard library.
@@ -82,7 +94,7 @@ The ThuThesis template must be supplied or downloaded separately. The user selec
 
 ## Validation
 
-The repository contains 41 runtime files and 8 regression test files covering bibliography checks, compile artifacts, source ingestion, Markdown processing, CLI compatibility, and workflow boundaries.
+The core skill contains 41 runtime files and 8 original regression test files covering bibliography checks, compile artifacts, source ingestion, Markdown processing, CLI compatibility, and workflow boundaries. The repository also includes the original example, replay tool, and local failure-scenario tests.
 
 Publication checks on 2026-09-14: **123 existing regression tests passed**, **all 17 public CLI `--help` checks passed**, and runtime files matched the reviewed release package byte for byte.
 
@@ -92,7 +104,7 @@ Publication checks on 2026-09-14: **123 existing regression tests passed**, **al
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
-The earlier release review completed real compilation of local ThuThesis v7.7.1 projects with and without citations. This publication rechecks packaging and regression tests; it does not repeat the full thesis end-to-end compilation. Real Windows compatibility and the online official-download end-to-end path were not verified for this publication.
+The publication checks on 2026-09-14 revalidated packaging and regression tests without repeating full thesis compilation. See the [example validation record](examples/minimal/VALIDATION.md) for the original guide's local authoring, real compilation, and official-download path checks. The example was not tested on Windows or Linux.
 
 ## Layout
 
@@ -102,7 +114,9 @@ thuthesis-authoring/
 ├── scripts/             # 17 CLIs and 6 internal modules
 ├── references/          # 12 reference documents
 ├── assets/templates/    # 5 writing and delivery templates
-├── tests/               # 8 regression test files
+├── tests/               # Core regression tests and example entry-point checks
+├── examples/minimal/    # Original guide, reviewed outputs, and previews
+├── tools/run_example.py # Local replay entry point
 ├── LICENSE              # MIT license
 ├── README.md
 └── README.en.md
