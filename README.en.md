@@ -32,8 +32,8 @@ Keep the relative layout of `SKILL.md`, `scripts/`, `references/`, and `assets/`
 
 The [download page](https://github.com/peta-webster/thuthesis-authoring/releases/latest) provides two packages:
 
-- **Full package (`.zip`)**: 49 files including 8 test files. `SKILL.md` is at the archive root. For manual installation, extract it into a new `thuthesis-authoring/` directory.
-- **Runtime package (`.skill`)**: 41 runtime files in ZIP format, already wrapped in a `thuthesis-authoring/` directory. Use this package when tests are not needed.
+- **Full package (`.zip`)**: 50 files: 41 runtime files, 8 test files, and `LICENSE`. `SKILL.md` is at the archive root. For manual installation, extract it into a new `thuthesis-authoring/` directory.
+- **Runtime package (`.skill`)**: 42 files: 41 runtime files and `LICENSE`, in ZIP format and already wrapped in a `thuthesis-authoring/` directory. Use this package when tests are not needed.
 
 Both packages contain identical runtime files. A `SHA256SUMS.txt` release asset is provided to verify downloads.
 
@@ -103,11 +103,16 @@ thuthesis-authoring/
 ├── references/          # 12 reference documents
 ├── assets/templates/    # 5 writing and delivery templates
 ├── tests/               # 8 regression test files
+├── LICENSE              # MIT license
 ├── README.md
 └── README.en.md
 ```
 
-Upstream template: [tuna/thuthesis](https://github.com/tuna/thuthesis). This project provides an independent Agent authoring workflow. The official template and its assets retain their upstream license.
+## License and upstream
+
+The code and documentation in this project are licensed under the [MIT License](LICENSE), allowing use, modification, and redistribution, including commercial use. Retain the copyright notice and license text when redistributing. Both download packages include `LICENSE`.
+
+Upstream template: [tuna/thuthesis](https://github.com/tuna/thuthesis). This project provides an independent Agent authoring workflow and does not bundle the official ThuThesis template. Official templates and assets downloaded or supplied separately retain their upstream license.
 
 ## Codex quick install (optional)
 

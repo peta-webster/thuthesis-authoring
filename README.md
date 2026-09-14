@@ -32,8 +32,8 @@ git clone --depth 1 https://github.com/peta-webster/thuthesis-authoring.git
 
 [下载页面](https://github.com/peta-webster/thuthesis-authoring/releases/latest) 提供两种包：
 
-- **完整包（`.zip`）**：49 个文件，含 8 个测试文件；`SKILL.md` 位于压缩包根目录。手动安装时，将它解压到新建的 `thuthesis-authoring/` 目录。
-- **运行包（`.skill`）**：41 个运行文件，内容为 ZIP，内部已有 `thuthesis-authoring/` 目录；无需测试文件时可使用此包。
+- **完整包（`.zip`）**：50 个文件，含 41 个运行文件、8 个测试文件和 `LICENSE`；`SKILL.md` 位于压缩包根目录。手动安装时，将它解压到新建的 `thuthesis-authoring/` 目录。
+- **运行包（`.skill`）**：42 个文件，含 41 个运行文件和 `LICENSE`，内容为 ZIP，内部已有 `thuthesis-authoring/` 目录；无需测试文件时可使用此包。
 
 两个包的运行文件完全一致。Release 附有 `SHA256SUMS.txt`，可用于校验下载内容。
 
@@ -101,11 +101,16 @@ thuthesis-authoring/
 ├── references/          # 12 份参考说明
 ├── assets/templates/    # 5 个写作与交付模板
 ├── tests/               # 8 个回归测试文件
+├── LICENSE              # MIT 许可证
 ├── README.md
 └── README.en.md
 ```
 
-模板上游：[tuna/thuthesis](https://github.com/tuna/thuthesis)。本项目提供独立的 Agent 写作工作流；官方模板及其素材保留上游许可证。
+## 许可证与上游
+
+本项目的代码与文档采用 [MIT 许可证](LICENSE)，允许使用、修改和再分发，包括商业用途；再分发时请保留版权声明和许可证文本。两个下载包均附带 `LICENSE`。
+
+模板上游：[tuna/thuthesis](https://github.com/tuna/thuthesis)。本项目提供独立的 Agent 写作工作流，不包含官方 ThuThesis 模板；单独下载或提供的官方模板及其素材保留上游许可证。
 
 ## Codex 快捷安装（可选）
 
