@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 from _atomic_write import atomic_write_text, validate_in_place_target
+from _markdown_syntax import markdown_code_mask, scan_markdown_math
 
 
 FULLWIDTH_DIGITS = str.maketrans("０１２３４５６７８９", "0123456789")
@@ -78,10 +79,20 @@ def normalize_numeric_citations_with_count(
     if not PREFIX_RE.fullmatch(key_prefix):
         raise ValueError("key_prefix must start with a letter and contain only letters, digits, colon, underscore, or hyphen")
 
+    # Scan the whole source so display math and code spanning lines remain
+    # protected even while replacements are applied one physical line at a time.
+    eligible = markdown_code_mask(text)
+    math_spans, _ = scan_markdown_math(text)
+    for span in math_spans:
+        eligible[span.start:span.end] = [False] * (span.end - span.start)
+
     count = 0
+    line_offset = 0
 
     def repl(match: re.Match) -> str:
         nonlocal count
+        if not all(eligible[line_offset + match.start():line_offset + match.end()]):
+            return match.group(0)
         opener, content, closer = match.groups()
         if CLOSE_FOR_OPEN.get(opener) != closer:
             return match.group(0)
@@ -104,6 +115,7 @@ def normalize_numeric_citations_with_count(
             normalized_lines.append(line)
         else:
             normalized_lines.append(MARKER_RE.sub(repl, body) + newline)
+        line_offset += len(line)
     return "".join(normalized_lines), count
 
 

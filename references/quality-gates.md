@@ -14,11 +14,13 @@ Flags: `--main <root-main.tex>` (audit the explicitly selected main and literal 
 
 The command exits non-zero and lists `failed_gates` when any structural gate fails. `submission_ready` is deliberately separate: it is false when the selected-main graph contains an active, commented, literal-text, or `BLOCKING:` TODO, or when that graph cannot be resolved completely. Valid TODOs do not make `ok` false or change compile success. If `--main` is omitted, `submission_ready` is null and `main_todo_status.audit_skipped` explains why. Use the individual checkers only when isolating one gate. The bibliography gate uses a brace- and quote-aware BibTeX parser; it fails on parse errors, duplicate or missing keys, cited note-only entries, and cited entries with no fields the style can render. Missing common metadata on an otherwise renderable entry is reported under warnings and does not justify invented values.
 
+The main-file audit follows literal braced paths such as `\input{data/chap01}` and `\include{data/chap02}`. Unbraced, dynamic, or malformed input arguments produce `dynamic_or_unsupported_input` and make `audit_complete=false` and `submission_ready=false`; they are not silently treated as a complete graph.
+
 Before reporting completion, check:
 
 1. Target paths were validated.
 2. Protected template files were not modified.
-3. LaTeX environments and braces are roughly balanced.
+3. LaTeX environments and braces are roughly balanced. A closing brace without a preceding opening brace fails the check even if the final counts match; its diagnostic includes a one-based line and column.
 4. TODO markers use `[TODO: ...]`.
 5. Citations are from supplied sources or marked as TODO.
 6. When citations or `.bib` files were touched, every generated or preserved `\cite{}` key resolves to a parseable, renderable entry in the project `.bib` files; no cited entry stores all content only in `note`, `abstract`, or `annote`.

@@ -24,7 +24,9 @@ from _thuthesis_paths import classify
 
 
 MAIN_NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*\.tex$")
-INPUT_RE = re.compile(r"\\(?:input|include)\s*\{([^{}]+)\}")
+# Match the command even when its argument cannot be audited. Otherwise an
+# unbraced or malformed input silently disappears from the reachable graph.
+INPUT_RE = re.compile(r"\\(?:input|include)(?![A-Za-z@])\s*(?:\{([^{}]*)\})?")
 MAX_MAIN_GRAPH_FILES = 10_000
 MAX_MAIN_GRAPH_FILE_BYTES = 10 * 1024 * 1024
 
@@ -176,7 +178,17 @@ def audit_main_todos(root: Path, raw_main: str | None) -> tuple[bool | None, dic
 
         active_text = prepare_active_tex(text)
         for match in INPUT_RE.finditer(active_text):
-            child, issue = _resolve_literal_input(root, path, match.group(1))
+            raw_input = match.group(1)
+            if raw_input is None:
+                issues.append({
+                    "type": "dynamic_or_unsupported_input",
+                    "source": str(path),
+                    "line": active_text[:match.start()].count("\n") + 1,
+                    "input": match.group(0).strip(),
+                    "message": "cannot audit this input; use a literal braced path such as \\input{data/chap01}",
+                })
+                continue
+            child, issue = _resolve_literal_input(root, path, raw_input)
             if issue:
                 issues.append(issue)
             elif child is not None:

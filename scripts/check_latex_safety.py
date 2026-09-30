@@ -14,20 +14,38 @@ from _shared_patterns import CITE_RE, SUSPICIOUS_KEY_RE, TODO_TOKEN_RE, VALID_TO
 ENV_TOKEN_RE = re.compile(r"\\(begin|end)\{([^}]+)\}")
 
 
-def brace_balance(text: str) -> int:
+def _scan_braces(text: str) -> tuple[int, list[dict[str, object]]]:
     balance = 0
+    open_count = 0
     escaped = False
-    for char in text:
-        if escaped:
-            escaped = False
-            continue
-        if char == "\\":
-            escaped = True
-        elif char == "{":
-            balance += 1
-        elif char == "}":
-            balance -= 1
-    return balance
+    issues: list[dict[str, object]] = []
+    for line_no, line in enumerate(text.splitlines(keepends=True), start=1):
+        for column, char in enumerate(line, start=1):
+            if escaped:
+                escaped = False
+                continue
+            if char == "\\":
+                escaped = True
+            elif char == "{":
+                balance += 1
+                open_count += 1
+            elif char == "}":
+                balance -= 1
+                if open_count:
+                    open_count -= 1
+                else:
+                    issues.append({
+                        "type": "unexpected_closing_brace",
+                        "line": line_no,
+                        "column": column,
+                        "message": "closing brace has no preceding opening brace",
+                    })
+    return balance, issues
+
+
+def brace_balance(text: str) -> int:
+    """Return the net balance, retaining the original helper's API."""
+    return _scan_braces(text)[0]
 
 
 def check_file(path: Path) -> dict[str, object]:
@@ -44,7 +62,8 @@ def check_file(path: Path) -> dict[str, object]:
     # preserved, so reported line numbers still match the original file.
     body = prepare_active_tex(text)
 
-    balance = brace_balance(body)
+    balance, brace_issues = _scan_braces(body)
+    issues.extend(brace_issues)
     if balance != 0:
         issues.append({"type": "brace_balance", "message": f"brace balance is {balance}"})
 
