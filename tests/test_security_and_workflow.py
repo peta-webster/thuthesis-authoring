@@ -532,6 +532,62 @@ class TargetAndBibliographyTests(unittest.TestCase):
 
 
 class MainTodoStatusTests(unittest.TestCase):
+    def test_unbraced_or_dynamic_inputs_make_audit_incomplete(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            (root / "data").mkdir()
+            (root / "data/chapter.tex").write_text("[TODO: missing evidence]\n", encoding="utf-8")
+            for statement in (
+                r"\input data/chapter",
+                r"\include data/chapter",
+                r"\input\chapterfile",
+                r"\input{data/\chapterfile}",
+                r"\input{data/chapter",
+            ):
+                with self.subTest(statement=statement):
+                    (root / "main.tex").write_text("Complete.\n" + statement + "\n", encoding="utf-8")
+                    ready, status = run_quality_gates.audit_main_todos(root, "main.tex")
+                    self.assertFalse(ready)
+                    self.assertFalse(status["audit_complete"])
+                    self.assertIn("dynamic_or_unsupported_input", {issue["type"] for issue in status["issues"]})
+
+    def test_input_lookalikes_and_literal_commands_do_not_block_audit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            (root / "chapter.tex").write_text("Complete.\n", encoding="utf-8")
+            (root / "main.tex").write_text(
+                "% \\input ignored\n"
+                "\\verb|\\input ignored|\n"
+                "\\begin{verbatim}\\input ignored\\end{verbatim}\n"
+                "\\includegraphics{plot}\n\\inputencoding{utf8}\n"
+                "\\input {chapter}\n",
+                encoding="utf-8",
+            )
+            ready, status = run_quality_gates.audit_main_todos(root, "main.tex")
+        self.assertTrue(ready)
+        self.assertTrue(status["audit_complete"])
+        self.assertEqual(status["reachable_files"], ["chapter.tex", "main.tex"])
+
+    def test_quality_gate_reports_unbraced_input_without_changing_structural_ok(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            root = workspace / "project"
+            baseline = workspace / "baseline"
+            for base in (root, baseline):
+                (base / "data").mkdir(parents=True)
+                (base / "data/chapter.tex").write_text("[TODO: fill chapter]\n", encoding="utf-8")
+            (root / "main.tex").write_text("\\input data/chapter\n", encoding="utf-8")
+            result = subprocess.run(
+                [sys.executable, str(SCRIPTS / "run_quality_gates.py"), str(root), "data/chapter.tex",
+                 "--baseline-root", str(baseline), "--skip-bibliography", "--main", "main.tex"],
+                capture_output=True, text=True,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads(result.stdout)
+        self.assertTrue(report["ok"])
+        self.assertFalse(report["submission_ready"])
+        self.assertFalse(report["main_todo_status"]["audit_complete"])
+
     def test_main_graph_counts_active_commented_and_blocking_todos(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
